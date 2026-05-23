@@ -1,0 +1,38 @@
+{
+  "policies": [
+    {
+      "name": "analyst-read-policy",
+      "service": "hive",
+      "resources": {
+        "database": ["analytics_db"],
+        "table": ["*"],
+        "column": ["*"]
+      },
+      "policyItems": [
+        {
+          "accesses": [{"type": "select", "isAllowed": true}],
+          "users": [],
+          "groups": ["analysts"]
+        }
+      ]
+    },
+    {
+      "name": "etl-write-policy",
+      "service": "hdfs",
+      "resources": {
+        "path": ["/data/etl", "/data/staging"]
+      },
+      "policyItems": [
+        {
+          "accesses": [
+            {"type": "read",    "isAllowed": true},
+            {"type": "write",   "isAllowed": true},
+            {"type": "execute", "isAllowed": true}
+          ],
+          "users": ["etl_user"],
+          "groups": ["etl_group"]
+        }
+      ]
+    }
+  ]
+}
